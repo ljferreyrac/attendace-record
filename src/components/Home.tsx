@@ -17,7 +17,7 @@ const Home: React.FC<IHomeProps> = ({ children }: IHomeProps) => {
   useEffect(() => {
     const user = auth.currentUser;
     if (user) {
-      setIsAdmin(user.uid === "Gbkz9BmZCcUVFXhmYsbU9H9odu63");
+      setIsAdmin(user.uid === "cS4UkuYVJ5cUxiPWeu5B2Hxq2DX2");
     }
   }, [auth]);
 

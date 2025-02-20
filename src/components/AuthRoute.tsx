@@ -19,7 +19,7 @@ const AuthRoute: React.FC<IAuthRouteProps> = (props) => {
       if (user) {
         if (
           location.pathname === "/attendance" &&
-          user.uid !== "Gbkz9BmZCcUVFXhmYsbU9H9odu63"
+          user.uid !== "cS4UkuYVJ5cUxiPWeu5B2Hxq2DX2"
         ) {
           navigate("/");
         }
