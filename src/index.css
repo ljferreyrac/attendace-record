@@ -1,0 +1,80 @@
+@import "tailwindcss";
+
+#reader {
+  border: none !important;
+  box-shadow: none !important;
+}
+
+#reader *,
+#reader video,
+#reader__scan_region {
+  border-radius: 0.5rem !important;
+}
+
+#reader__scan_region {
+  background: #ffffff !important;
+  border: 2px dashed #2563eb !important;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#reader__dashboard {
+  padding: 0 !important;
+  border: none !important;
+  background: transparent !important;
+}
+
+#reader__dashboard_section_csr > div,
+span {
+  display: flex;
+  justify-content: center;
+}
+
+#reader__dashboard_section_swaplink,
+#reader__status_span {
+  display: none;
+}
+
+button.html5-qrcode-element {
+  padding: 0.5rem 1rem !important;
+  background-color: #2563eb !important;
+  color: white !important;
+  border-radius: 0.5rem !important;
+  margin: 0.5rem !important;
+  font-size: 0.875rem !important;
+  font-weight: 600 !important;
+  transition: background-color 0.2s ease-in-out, transform 0.1s ease-in-out;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+button.html5-qrcode-element:hover {
+  background-color: #1d4ed8 !important;
+  transform: scale(1.05);
+}
+
+button.html5-qrcode-element:active {
+  transform: scale(0.95);
+}
+
+@media (max-width: 640px) {
+  #reader {
+    width: 100%;
+    min-height: 250px;
+  }
+
+  #reader__scan_region {
+    border-width: 1.5px;
+  }
+
+  button.html5-qrcode-element {
+    font-size: 0.8rem !important;
+    padding: 0.4rem 0.8rem !important;
+  }
+}
