@@ -31,7 +31,7 @@ const Login = () => {
       <div className="w-full max-w-md p-8 bg-white rounded-lg shadow-lg">
         <div className="text-center mb-8">
           <img
-            src="/logo.png"
+            src="/logo.jpeg"
             alt="BranchOut Logo"
             className="h-20 w-auto mx-auto mb-6"
           />

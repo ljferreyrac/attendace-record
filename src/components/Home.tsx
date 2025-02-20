@@ -83,7 +83,7 @@ const Home: React.FC<IHomeProps> = ({ children }: IHomeProps) => {
             <div className="flex-shrink-0">
               <div className="flex items-center space-x-2">
                 <img
-                  src="/logo.png"
+                  src="/logo.jpeg"
                   alt="Logo Sistema de Asistencia"
                   className="h-8 w-auto sm:h-10"
                 />
