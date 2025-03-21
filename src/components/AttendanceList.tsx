@@ -13,7 +13,7 @@ import {
 import { getAttendances } from "../utils/queries";
 import type { Attendance } from "../types/employee";
 import * as XLSX from "xlsx";
-import { Search, Download, Calendar, User } from "lucide-react";
+import { Search, Download, Calendar, User, Sunrise } from "lucide-react";
 import { formatToDisplayDate } from "../utils/timeConverter";
 
 const AttendanceList: React.FC = () => {
@@ -28,16 +28,20 @@ const AttendanceList: React.FC = () => {
   const [startDate, setStartDate] = useState(today);
   const [endDate, setEndDate] = useState(today);
   const [employeeId, setEmployeeId] = useState<string>();
+  const [workAtDawn, setWorkAtDawn] = useState(false);
   const [attendances, setAttendances] = useState<Attendance[]>([]);
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [globalFilter, setGlobalFilter] = useState("");
+
+  console.log(workAtDawn);
 
   const fetchAttendances = useCallback(async () => {
     try {
       const attendanceReponse = await getAttendances(
         startDate,
         endDate,
+        workAtDawn,
         employeeId || undefined
       );
 
@@ -60,7 +64,7 @@ const AttendanceList: React.FC = () => {
     } catch (error) {
       console.error("Error fetching attendances:", error);
     }
-  }, [employeeId, endDate, startDate]);
+  }, [employeeId, endDate, startDate, workAtDawn]);
 
   const columns = useMemo<ColumnDef<Attendance>[]>(
     () => [
@@ -237,6 +241,37 @@ const AttendanceList: React.FC = () => {
               Exportar
             </button>
           )}
+        </div>
+      </div>
+
+      <div className="flex items-center mb-4">
+        <div className="flex items-center mr-6">
+          <label className="flex items-center cursor-pointer">
+            <div className="relative">
+              <input
+                type="checkbox"
+                checked={workAtDawn}
+                onChange={(e) => setWorkAtDawn(e.target.checked)}
+                className="sr-only"
+              />
+              <div
+                className={`block ${
+                  workAtDawn ? "bg-blue-200" : "bg-gray-200"
+                } w-14 h-8 rounded-full`}
+              ></div>
+              <div
+                className={`dot absolute left-1 top-1 w-6 h-6 rounded-full transition-transform ${
+                  workAtDawn
+                    ? "transform translate-x-6 bg-blue-600"
+                    : "bg-white"
+                }`}
+              ></div>
+            </div>
+            <div className="ml-3 flex items-center text-gray-700 font-medium">
+              <Sunrise size={20} className="mr-2 text-amber-500" />
+              Trabajo al amanecer
+            </div>
+          </label>
         </div>
       </div>
 

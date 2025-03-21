@@ -1,5 +1,7 @@
 import { createRoot } from "react-dom/client";
 import "./index.css";
+import CacheBuster from "react-cache-buster";
+import { version } from "../package.json";
 import App from "./App.tsx";
 import { BrowserRouter } from "react-router";
 import { startTraduction } from "./scannerTranslator.ts";
@@ -12,6 +14,7 @@ import {
   VITE_FIREBASE_PROJECT_ID,
   VITE_FIREBASE_STORAGE_BUCKET,
 } from "./config.ts";
+import Loader from "./components/Loader.tsx";
 
 const firebaseConfig = {
   apiKey: VITE_FIREBASE_API_KEY,
@@ -26,8 +29,16 @@ initializeApp(firebaseConfig);
 
 startTraduction();
 
+const isProduction = process.env.NODE_ENV === "production";
+
 createRoot(document.getElementById("root")!).render(
-  <BrowserRouter>
-    <App />
-  </BrowserRouter>
+  <CacheBuster
+    currentVersion={version}
+    isEnabled={isProduction}
+    loadingComponent={<Loader />}
+  >
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+  </CacheBuster>
 );

@@ -6,6 +6,7 @@ export interface EmployeeResponse {
   hire_date: string;
   max_scan_number: number;
   work_hours: number;
+  work_at_dawn: boolean;
 }
 
 export interface Employee {

@@ -23,9 +23,13 @@ export const getEmployeeById = async (
   }
 };
 
-export const getLastScanNumber = async (documentId: string, date: string) => {
+export const getLastScanNumber = async (
+  documentId: string,
+  workAtDawn: boolean,
+  date: string
+) => {
   const response = await fetch(
-    `${VITE_CLOUDFLARE_WORKER_URL}/api/last-scan-number?documentId=${documentId}&date=${date}`,
+    `${VITE_CLOUDFLARE_WORKER_URL}/api/last-scan-number?documentId=${documentId}&date=${date}&workAtDawn=${workAtDawn}`,
     {
       headers: {
         Authorization: `Bearer ${VITE_CLOUDFLARE_API_TOKEN}`,
@@ -33,7 +37,7 @@ export const getLastScanNumber = async (documentId: string, date: string) => {
     }
   );
   const data = await response.json();
-  return data.lastScanNumber;
+  return { lastScanNumber: data.lastScanNumber, workAtDawn: data.workAtDawn };
 };
 
 export const insertScanRecord = async (scanData: {
@@ -47,6 +51,7 @@ export const insertScanRecord = async (scanData: {
   scanNumber: number;
   maxScanNumber: number;
   workHours: number;
+  workAtDawn: boolean;
 }) => {
   const response = await fetch(
     `${VITE_CLOUDFLARE_WORKER_URL}/api/insert-scan`,
@@ -65,11 +70,13 @@ export const insertScanRecord = async (scanData: {
 export const getAttendances = async (
   startDate: string,
   endDate: string,
+  workAtDawn: boolean,
   documentId?: string
 ): Promise<AttendanceResponse[]> => {
   const url = new URL(`${VITE_CLOUDFLARE_WORKER_URL}/api/attendances`);
   url.searchParams.append("startDate", startDate);
   url.searchParams.append("endDate", endDate);
+  url.searchParams.append("workAtDawn", String(workAtDawn));
   if (documentId) {
     url.searchParams.append("documentId", documentId);
   }

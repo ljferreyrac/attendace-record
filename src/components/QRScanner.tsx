@@ -37,18 +37,21 @@ const QRScanner: React.FC = () => {
           })
         );
 
-        const lastScanNumber = await getLastScanNumber(
+        const { lastScanNumber, workAtDawn } = await getLastScanNumber(
           response.data.document_id,
+          response.data.work_at_dawn,
           currentDate
         );
 
+        let newScanNumber = lastScanNumber + 1;
         if (lastScanNumber >= response.data.max_scan_number) {
-          setError("Ya alcanzó el número máximo de escaneos para hoy");
-          setScannedEmployee(null);
-          return;
+          if (!workAtDawn) {
+            setError("Ya alcanzó el número máximo de escaneos para hoy");
+            setScannedEmployee(null);
+            return;
+          }
+          newScanNumber = 1;
         }
-
-        const newScanNumber = lastScanNumber + 1;
 
         const hireDate = formatToDatabaseDate(
           formatToDisplayDate(response.data.hire_date.split("T")[0])
@@ -70,6 +73,7 @@ const QRScanner: React.FC = () => {
           scanNumber: newScanNumber,
           maxScanNumber: response.data.max_scan_number,
           workHours: response.data.work_hours,
+          workAtDawn: response.data.work_at_dawn,
         });
 
         setScannedEmployee({
