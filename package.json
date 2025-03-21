@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "vite",
     "generate-meta-tag": "node ./node_modules/react-cache-buster/dist/generate-meta-tag.js",
-    "build": "yarn generate-meta-tag && tsc -b && vite build",
+    "build": "yarn generate-meta-tag && npx tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview"
   },
