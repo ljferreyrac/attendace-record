@@ -154,15 +154,6 @@ const AttendanceList: React.FC = () => {
 
     const dataToExport = table.getFilteredRowModel().rows.map((row) => {
       const rowData = { ...row.original };
-      if (rowData.scanDate) {
-        const date = new Date(rowData.scanDate);
-        rowData.scanDate = date.toLocaleDateString("es-PE", {
-          timeZone: "America/Lima",
-          hour: "2-digit",
-          minute: "2-digit",
-          second: "2-digit",
-        });
-      }
       const transformedRow: Record<string, string | number | null> = {};
       (Object.keys(rowData) as Array<keyof typeof rowData>).forEach((key) => {
         const newKey = headersMap[key];
